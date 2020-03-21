@@ -11,10 +11,10 @@ export class AppComponent {
   API_URL = 'http://starlord.hackerearth.com/bankAccount';
   accountDetails: AccountDetail[] = [];
   accoontDetailsToShowOnUI: AccountDetail[] = [];
-  start: number = 0;
-  end: number = 10;
-  pageSize: number = 10;
+  pageSize = 5;
   defaultPageNo = true;
+  start = 0;
+  end = this.pageSize;
  
   constructor(private httpClient: HttpClient) {
    this.httpClient.get<AccountDetail[]>(this.API_URL).subscribe((accountdetails: AccountDetail[]) => {
@@ -43,10 +43,10 @@ export class AppComponent {
         } else {
         this.start = 0;
         }
-        if (this.end > this.pageSize && this.end -this.pageSize > 10) {
+        if (this.end > this.pageSize && this.end - this.pageSize > this.pageSize) {
         this.end = this.end  - this.pageSize;
         } else {
-        this.end = 10;
+        this.end = this.pageSize;
       }
   }
     this.accoontDetailsToShowOnUI = this.accountDetails.slice(this.start , this.end);
