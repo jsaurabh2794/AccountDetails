@@ -15,6 +15,12 @@ export class AppComponent {
   defaultPageNo = true;
   start = 0;
   end = this.pageSize;
+  noOfPages = 0;
+  pageNoArray: number[] = [];
+  selectedPageNo = 1;
+  prev;
+  curr;
+  next;
  
   constructor(private httpClient: HttpClient) {
    this.httpClient.get<AccountDetail[]>(this.API_URL).subscribe((accountdetails: AccountDetail[]) => {
@@ -30,8 +36,15 @@ export class AppComponent {
       ));
     }
     this.accoontDetailsToShowOnUI = this.accountDetails.slice(this.start , this.end);
+    const length = this.accountDetails.length;
+    this.noOfPages = length % this.pageSize === 0 ? length / this.pageSize : (length / this.pageSize) + 1;
+    console.log(Math.floor(this.noOfPages));
+    this.prev = 1;
+    this.curr = 2;
+    this.next = 3;
    });
   }
+
 
   goBack() {
     if (this.end % this.pageSize !== 0) {
@@ -68,6 +81,19 @@ export class AppComponent {
     }
     this.accoontDetailsToShowOnUI = this.accountDetails.slice(this.start , this.end);
     console.log('Next: ' + this.start + ' ' + this.end);
+  }
+
+  goToPage(n: number) {
+  
+   this.selectedPageNo = n; 
+   console.log('Selected: ' + n );
+   this.pageNoArray = [];
+   this.start = 0 + this.pageSize * n;
+   this.end = this.start + this.pageSize;
+   this.accoontDetailsToShowOnUI = this.accountDetails.slice(this.start , this.end);
+   this.prev = (n - 1);
+   this.curr = (n);
+   this.next = (n + 1);
   }
 
 }

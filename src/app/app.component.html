@@ -34,9 +34,18 @@
               <span aria-hidden="true">Prev</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link">1</a></li>
-          <li class="page-item"><a class="page-link">2</a></li>
-          <li class="page-item"><a class="page-link">3</a></li>
+          <li class="page-item">
+            <a class="page-link" (click)="goToPage(prev)" style="cursor: pointer;">{{prev}}</a>
+          </li>
+          <li class="page-item" >
+            <a class="page-link" (click)="goToPage(curr)" style="cursor: pointer;">{{curr}}</a>
+          </li>
+          <li class="page-item" >
+            <a class="page-link" (click)="goToPage(next)" style="cursor: pointer;">{{next}}</a>
+          </li>
+          <li class="page-item" >
+            <a class="page-link">...</a>
+          </li>
           <li class="page-item">
             <a class="page-link" aria-label="Next" (click)="goForward()" style="cursor: pointer;">
               <span aria-hidden="true">Next</span>
